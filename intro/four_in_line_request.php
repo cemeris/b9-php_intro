@@ -42,7 +42,6 @@ else {
     $moves = getGameState();
 }
 
-
 $output = [
     'status' => true
 ];
@@ -65,6 +64,12 @@ for($r = 1; $r <= 10; $r++) {
 
         $output['buttons'] .= "<a href='?r=$r&c=$c' $class>$symbol</a>";
     }
+}
+
+
+$has_winner = isset($moves['win_symbol']);
+if ($has_winner) {
+    $output['message'] = "Winner is " . $moves['win_symbol'] . "!";
 }
 
 echo json_encode($output, JSON_PRETTY_PRINT);

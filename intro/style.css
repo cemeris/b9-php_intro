@@ -50,3 +50,7 @@ h2 {
 .game_board .win_move {
   background: rgb(192, 241, 31);
 }
+
+.message {
+  text-align: center;
+}

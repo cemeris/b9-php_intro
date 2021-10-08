@@ -31,18 +31,9 @@
 
 ?>
 
-<div class="message">
-    <?php
-    /*
-    $has_winner = isset($moves['win_symbol']);
-    
-    if ($has_winner) {
-        echo "Winner is " . $moves['win_symbol'] . "!";
-    }
-    */
-    ?>
+<h2 class="message">
 
-</div>
+</h2>
 
 <div class="game_board four-in-line">
 
@@ -51,7 +42,7 @@
 ?>
 </div>
 
-<a href="?reset=true" class="btn">Reset</a>
+<a href="?reset=true" class="btn reset">Reset</a>
 
 <script src="request.js"></script>
 <script src="four_in_line.js"></script>
