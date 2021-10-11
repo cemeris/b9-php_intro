@@ -1,41 +1,41 @@
 <?php
 header('Content-type: application/json');
+define('PRIVATE_DIR', __DIR__ . "/../private");
+
+include_once(PRIVATE_DIR . "/classes/Random.php");
+$rand_generator = new Random();
 
 $output = [];
+//https://baconipsum.com/api/?type=meat-and-filler&paras=2&format=text
+//https://dog.ceo/api/breeds/image/random
+//https://api.fungenerators.com/name/categories.json?start=0&limit=1
 
-$entries = [
-    [
-        'author' => 'Vitālijs',
-        'image_path' => 'images/IMG_2699.png',
-        'fallowers' => 623,
-        'created_at' => 1633111098,
-        'content' => "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when.
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when.
-            https://bit.ly/2RANHvl",
-        'likes' => 153,
-        'comment_count' => 57
-    ],
-    [
-        'author' => 'Māris',
-        'image_path' => 'images/nature.jpg',
-        'fallowers' => 633,
-        'created_at' => 1633111077,
-        'content' => "LoreHei Heie printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when.
-            https://bit.ly/2RANHvl",
-        'likes' => 103,
-        'comment_count' => 54
-    ],
-    [
-        'author' => 'Anna',
-        'image_path' => 'https://images.unsplash.com/photo-1632877558001-92e30f4a6b65?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1771&q=80',
-        'fallowers' => 623,
-        'created_at' => 1633111077,
-        'content' => "Teksts trešajam ierakstam Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when.
-            https://bit.ly/2RANHvl",
-        'likes' => 102,
-        'comment_count' => 54
-    ]
+$template = [
+    'author' => 'Vitālijs',
+    'image_path' => 'images/IMG_2699.png',
+    'fallowers' => 623,
+    'created_at' => 1633539244,
+    'content' => "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when.
+        </p><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when.</p>
+        <a href='https://bit.ly/2RANHvl'>bit.ly/2RANHvl</a>",
+    'likes' => 153,
+    'comment_count' => 57
 ];
+
+$entries = [];
+define('POSTS_COUNT', 10);
+
+for ($i = 0; $i < POSTS_COUNT; $i++) {
+    $template['fallowers'] = $rand_generator->getFallowerCount();
+    $template['created_at'] = $rand_generator->getCreateAt();
+    $template['likes'] = $rand_generator->getLikesCount();
+    $template['comment_count'] = $rand_generator->getCommentCount();
+
+    $template['content'] = $rand_generator->getContent();
+    $template['image_path'] = $rand_generator->getImage();
+
+    $entries[] = $template;
+}
 
 $output['status'] = false;
 

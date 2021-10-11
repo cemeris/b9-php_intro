@@ -3,7 +3,7 @@
         <div class="post__author">
             <div class="post__author-image"></div>
             <b class="post__author-name"></b>
-            <div>623 fallowers</div>
+            <div><span class="fallower_nr"></span> fallowers</div>
             <div class="post__history">
                 <span class="post__created">1w</span> •
                 <svg style="vertical-align: text-top;" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -18,11 +18,7 @@
             </svg>
         </a>
     </div>
-    <div class="post__content">
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when.</p>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when.</p>
-        <a href="#">https://bit.ly/2RANHvl</a>
-    </div>
+    <div class="post__content"></div>
     <img class="post__image" src="" alt="">
     <div class="post__social">
         <div class="post__interactions">
@@ -72,8 +68,8 @@
             </g>
         </svg>
         
-        <span class="likes_count">153</span> •
-        <a href="#" class="post__show_commenets_btn"><span class="comments_count">57</span> comments</a>
+        <span class="likes_count"></span> •
+        <a href="#" class="post__show_commenets_btn"><span class="comments_count"></span> comments</a>
         </div>
         
         <hr>

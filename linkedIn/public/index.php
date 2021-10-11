@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="css/style.css" id="stylesheet" />
 
 <?php include(PRIVATE_DIR . "/parts/top_menu.php"); ?>
+
 <main>
     <div>
         <div class="card"></div>
