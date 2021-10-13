@@ -6,26 +6,32 @@ include_once(PRIVATE_DIR . "/classes/Random.php");
 $rand_generator = new Random();
 
 $output = [];
-//https://baconipsum.com/api/?type=meat-and-filler&paras=2&format=text
-//https://dog.ceo/api/breeds/image/random
-//https://api.fungenerators.com/name/categories.json?start=0&limit=1
 
 $template = [
     'author' => 'Vitālijs',
     'image_path' => 'images/IMG_2699.png',
-    'fallowers' => 623,
-    'created_at' => 1633539244,
-    'content' => "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when.
-        </p><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when.</p>
-        <a href='https://bit.ly/2RANHvl'>bit.ly/2RANHvl</a>",
-    'likes' => 153,
-    'comment_count' => 57
+    'fallowers' => 0,
+    'created_at' => 0,
+    'content' => "",
+    'likes' => 0,
+    'comment_count' => 0
 ];
 
 $entries = [];
 define('POSTS_COUNT', 10);
 
-for ($i = 0; $i < POSTS_COUNT; $i++) {
+$count = POSTS_COUNT;
+
+if (
+    isset($_GET['count']) &&
+    is_string($_GET['count']) &&
+    (int)$_GET['count'] == $_GET['count']
+) {
+    $output['count'] = (int)$_GET['count'];
+    $count = $output['count'];
+}
+
+for ($i = 0; $i < $count; $i++) {
     $template['fallowers'] = $rand_generator->getFallowerCount();
     $template['created_at'] = $rand_generator->getCreateAt();
     $template['likes'] = $rand_generator->getLikesCount();
@@ -33,6 +39,8 @@ for ($i = 0; $i < POSTS_COUNT; $i++) {
 
     $template['content'] = $rand_generator->getContent();
     $template['image_path'] = $rand_generator->getImage();
+
+    $template['author'] = $rand_generator->getName();
 
     $entries[] = $template;
 }

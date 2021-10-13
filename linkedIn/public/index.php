@@ -13,7 +13,15 @@
 
 <main>
     <div>
-        <div class="card"></div>
+        <div class="card">
+            <nav class="left-sidemanu">
+                <a href="#Home" class="active">Home</a>
+                <a href="#About">About</a>
+                <a href="#Jobs">Jobs</a>
+                <a href="#People">People</a>
+                <a href="#Ads">Ads</a>
+            </nav>
+        </div>
     </div>
     <div class="content">
       <?php
@@ -26,6 +34,7 @@
         <div class="card"></div>
     </div>
 </main>
+<div class="last">tt</div>
 
 <button onclick="changeThemeColor()" style="position:fixed; bottom: 5px; left: 5px;">
     Change Theme colors

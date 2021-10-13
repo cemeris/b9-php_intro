@@ -1,7 +1,7 @@
 <?php
 class Request
 {
-    public function get(string $url) {
+    static public function get(string $url) {
         $ch = curl_init($url);
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

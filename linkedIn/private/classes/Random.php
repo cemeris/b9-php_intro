@@ -1,6 +1,6 @@
 <?php
 include_once('Request.php');
-class Random extends Request
+class Random
 {
     private $sec_in_day = 24 * 60 * 60;
 
@@ -22,14 +22,19 @@ class Random extends Request
 
     public function getContent() {
         $paras = rand(1, 3);
-        return $this->get("https://baconipsum.com/api/?type=meat-and-filler&paras=$paras&format=text");
+        return Request::get("https://baconipsum.com/api/?type=meat-and-filler&paras=$paras&format=text");
     }
 
     public function getImage() {
-        $output = $this->get("https://dog.ceo/api/breeds/image/random");
+        $output = Request::get("https://dog.ceo/api/breeds/image/random");
         $data = json_decode($output, true);
         return $data['message'];
     }
 
+    public function getName() {
+        $output = Request::get("https://api.namefake.com/");
+        $data = json_decode($output, true);
+        return $data['name'];
+    }
 
 }

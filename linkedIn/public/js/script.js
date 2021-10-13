@@ -1,9 +1,18 @@
-let url = "api.php";
+let url = "api.php?count=1";
 let post_template = document.querySelector('.post.template');
 let content = document.querySelector('.content');
 
-request.get(url, function (response) {
-    for (let post of response.posts) {
+
+function getPost(count) {
+    if (count == 0) {
+        return;
+    }
+    request.get(url, function (response) {
+        if (!response.posts[0]) {
+            return;
+        }
+        let post = response.posts[0];
+
         let post_element = post_template.cloneNode(true);
         post_element.classList.remove('template');
         content.append(post_element);
@@ -19,5 +28,22 @@ request.get(url, function (response) {
         post_element.querySelector('.likes_count').textContent = post.likes;
         post_element.querySelector('.comments_count').textContent = post.comment_count;
         post_element.querySelector('.post__created').textContent = days_passed;
+        getPost(--count);
+    });
+}
+
+getPost(5);
+
+
+/*
+
+document.addEventListener('scroll', function(event)
+{
+    var element = this.querySelector('.last');
+    console.log(element, element.getBoundingClientRect().top);
+    if (element.scrollHeight - element.scrollTop === element.clientHeight)
+    {
+        //alert('scrolled');
     }
 });
+*/
