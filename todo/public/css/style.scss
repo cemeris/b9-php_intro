@@ -1,0 +1,26 @@
+/** @format */
+
+.template {
+  display: none;
+}
+
+.todo {
+  input:checked + span {
+    text-decoration: line-through;
+  }
+
+  &__li {
+    position: relative;
+    .btn {
+      opacity: 0;
+      position: absolute;
+      right: 10px;
+      transition: opacity 0.3s;
+    }
+
+    &:hover .btn {
+      opacity: 1;
+      transition: opacity 1s;
+    }
+  }
+}

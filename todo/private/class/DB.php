@@ -18,6 +18,16 @@ class DB
         $this->conn->close();
     }
 
+    /**
+     * Atgriež visus datus no datubazās konkrētas tabulas
+     *  return [
+     *     'status' => true
+     *     'entities' => [
+     *          ['id' => 1, 'desiption' => '...', ...]
+     *          ['id' => 2, 'desiption' => '...', ...]
+     *      ]
+     *  ];
+     */
     public function getAll() {
         $sql = "SELECT * FROM `$this->table_name`";
         $result = $this->conn->query($sql);
@@ -48,6 +58,10 @@ class DB
         }
     }
 
+    /**
+     * Sagalabā jaunu ierakstu tabulā.
+     * @param $entity = ['desiption' => '...', 'author' => '...']
+     */
     public function add(array $entity) {
         $columns = '';
         $values = '';
@@ -76,12 +90,43 @@ class DB
             return [
                 'status' => true,
                 'entity' => $entity
-            ];;
+            ];
         } else {
             return [
                 'status' => false,
                 'message' => "Error: " . $sql . "<br>" . $this->conn->error
             ];
+        }
+    }
+
+    public function delete(int $id) {
+        $sql = "DELETE FROM `$this->table_name` WHERE id=$id";
+
+        if ($this->conn->query($sql) === TRUE) {
+            return [
+                'status' => true,
+                'id' => $id
+            ];
+        } else {
+            return [
+                'status' => false
+            ];
+        }
+    }
+
+    /**
+     * @return false | $text - task description
+     */
+    public function update(int $id, array $entity) {
+        $new_text = htmlentities($new_text, ENT_QUOTES);
+        $new_text = $this->conn->real_escape_string($new_text);
+        $sql = "UPDATE `$this->table_name` SET text='$new_text' WHERE id=$id";
+
+        if ($this->conn->query($sql) === true) {
+            $this->task_list[$id]['text'] = $new_text;
+            return $new_text;
+        } else {
+            return false;
         }
     }
 }

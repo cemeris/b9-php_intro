@@ -34,7 +34,14 @@ function getPost(count) {
 
 getPost(5);
 
-
+window.onscroll = function (event) {
+    console.log(event.target);
+    var element = document.querySelector('.last');
+    var h = window.innerHeight
+|| document.documentElement.clientHeight
+|| document.body.clientHeight;
+    console.log(element.getBoundingClientRect().top, h);
+};
 /*
 
 document.addEventListener('scroll', function(event)
