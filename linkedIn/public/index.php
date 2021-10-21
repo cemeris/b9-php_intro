@@ -24,10 +24,10 @@
         </div>
     </div>
     <div class="content">
-        <div class="card">
-            <img src="images/avatar.png" alt="avatar">
+        <div class="card new">
+            <img class="new__avatar" src="images/avatar.png" alt="avatar">
             <form id="new_post_form" action="api.php?api-name=new_post" method="post">
-                <input type="text" name="new_post" placeholder="Start a post">
+                <textarea class="new__input" type="text" name="new_post" placeholder="Start a post"></textarea>
             </form>
         </div>
       <?php

@@ -15,7 +15,6 @@ $output = [
 
 if (isset($_GET['api-name']) && is_string($_GET['api-name'])) {
     if ($_GET['api-name'] == 'new_post') {
-
         $output['status'] = true;
     }
     elseif ($_GET['api-name'] == 'rand_post') {
