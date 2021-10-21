@@ -24,6 +24,12 @@
         </div>
     </div>
     <div class="content">
+        <div class="card">
+            <img src="images/avatar.png" alt="avatar">
+            <form id="new_post_form" action="api.php?api-name=new_post" method="post">
+                <input type="text" name="new_post" placeholder="Start a post">
+            </form>
+        </div>
       <?php
         include(PRIVATE_DIR . '/parts/post.php');
 
@@ -34,7 +40,7 @@
         <div class="card"></div>
     </div>
 </main>
-<div class="last">tt</div>
+<div class="last"></div>
 
 <button onclick="changeThemeColor()" style="position:fixed; bottom: 5px; left: 5px;">
     Change Theme colors

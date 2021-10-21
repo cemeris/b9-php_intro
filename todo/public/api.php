@@ -29,6 +29,22 @@ if (isset($_GET['api-name'])) {
         }
         $output['api_name'] = "delete";
     }
+    elseif ($_GET['api-name'] === "update") {
+        if (isset($_GET['id']) && (int)$_GET['id'] == $_GET['id']) {
+            $id = (int)$_GET['id'];
+            $entity = [];
+            if (isset($_GET['status'])) {
+                $entity['status'] = ($_GET['status'] === 'true') ? 1 : 0;
+            }
+            if (isset($_GET['description'])) {
+                $entity['description'] = $_GET['description'];
+            }
+
+            if (!empty($entity)) {
+                $output = $todo->update($id, $entity);
+            }
+        }
+    }
 }
 
 

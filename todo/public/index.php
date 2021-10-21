@@ -9,7 +9,7 @@ include_once(__DIR__ . '/../private/config.php');
 <script src="js/request.js"></script>
 
 
-<div class="container">
+<div class="container col-lg-4 col-md-6">
     <form action="api.php?api-name=add" class="row" id="todo_form">
         <label for="todo-description" class="form-label">Todo</label>
         <div class="col mb-3">
@@ -24,7 +24,7 @@ include_once(__DIR__ . '/../private/config.php');
         <li class="list-group-item template todo">
             <div class="todo__li form-check form-switch d-flex align-items-center">
                 <input class="form-check-input me-3" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                <span class="text"></span>
+                <span class="text todo__description"></span>
                 <a href="api.php?api-name=delete" class="btn btn-sm btn-dark todo__delete">x</a>
             </div>
         </li>

@@ -1,7 +1,7 @@
-let url = "api.php?count=1";
+let url = "api.php?api-name=rand_post&count=1";
 let post_template = document.querySelector('.post.template');
 let content = document.querySelector('.content');
-
+let loaded = 0;
 
 function getPost(count) {
     if (count == 0) {
@@ -28,19 +28,37 @@ function getPost(count) {
         post_element.querySelector('.likes_count').textContent = post.likes;
         post_element.querySelector('.comments_count').textContent = post.comment_count;
         post_element.querySelector('.post__created').textContent = days_passed;
+
+        loaded++;
         getPost(--count);
     });
 }
 
-getPost(5);
+const posts_to_load = 2;
+getPost(posts_to_load);
+
+
+document.getElementById('new_post_form').onsubmit = function (event) {
+    event.preventDefault();
+    const form = this;
+    request.post(this, function (response) {
+        form.querySelector('input').value = '';;
+    });
+};
+
+
 
 window.onscroll = function (event) {
     console.log(event.target);
     var element = document.querySelector('.last');
-    var h = window.innerHeight
-|| document.documentElement.clientHeight
-|| document.body.clientHeight;
-    console.log(element.getBoundingClientRect().top, h);
+    var h = window.innerHeight ||
+        document.documentElement.clientHeight ||
+        document.body.clientHeight;
+    if (element.getBoundingClientRect().top < h) {
+        if (loaded >= posts_to_load) {
+            console.log("now");
+        }
+    }
 };
 /*
 

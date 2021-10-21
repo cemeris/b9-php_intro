@@ -11,10 +11,10 @@
 
   &__li {
     position: relative;
+    padding-right: 30px;
     .btn {
       opacity: 0;
       position: absolute;
-      right: 10px;
       transition: opacity 0.3s;
     }
 
@@ -22,5 +22,13 @@
       opacity: 1;
       transition: opacity 1s;
     }
+  }
+
+  &__delete {
+    right: 1px;
+  }
+  &__description {
+    width: 100%;
+    min-height: 20px;
   }
 }

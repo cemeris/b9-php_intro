@@ -114,19 +114,46 @@ class DB
         }
     }
 
-    /**
-     * @return false | $text - task description
-     */
     public function update(int $id, array $entity) {
-        $new_text = htmlentities($new_text, ENT_QUOTES);
-        $new_text = $this->conn->real_escape_string($new_text);
-        $sql = "UPDATE `$this->table_name` SET text='$new_text' WHERE id=$id";
+        $data_string = '';
 
+        $left_elements = count($entity);
+        foreach ($entity as $column => $value) {
+            $value = $this->conn->real_escape_string($value);
+            $data_string .= "$column='$value'";
+
+            if ($left_elements-- > 1) {
+                $data_string  .= ', ';
+            }
+        }
+
+        $sql = "UPDATE `$this->table_name` SET $data_string WHERE id=$id";
         if ($this->conn->query($sql) === true) {
-            $this->task_list[$id]['text'] = $new_text;
-            return $new_text;
+            return [
+                'status' => true,
+                'id' => $id
+            ];
         } else {
-            return false;
+            return [
+                'status' => true,
+                'id' => $id
+            ];
         }
     }
 }
+
+//lenght == 1 000 000
+/*
+[13,15,25,22, 14,]
+
+[13,15,25,14,22]
+
+[13,15,25, 14,22]
+
+$odd = [13,15,25];
+$even = [14,22];
+
+$result = [13,15,25, 14,22];
+*/
+
+

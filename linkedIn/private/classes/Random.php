@@ -22,7 +22,14 @@ class Random
 
     public function getContent() {
         $paras = rand(1, 3);
-        return Request::get("https://baconipsum.com/api/?type=meat-and-filler&paras=$paras&format=text");
+        $output = Request::get("https://baconipsum.com/api/?type=meat-and-filler&paras=$paras&format=text");
+        if ($output) {
+            return $output;
+        }
+        else {
+            return "This is post content";
+        }
+
     }
 
     public function getImage() {
