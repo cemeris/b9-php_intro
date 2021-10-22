@@ -1,9 +1,9 @@
-let url = "api.php?api-name=rand_post&count=1";
 let post_template = document.querySelector('.post.template');
 let content = document.querySelector('.content');
+const sec_in_day = 60 * 60 * 24;
 //let loaded = 0;
 
-function getPost(count) {
+function getPost(count, url = "api.php?api-name=rand_post&count=1") {
     if (count == 0) {
         return;
     }
@@ -11,30 +11,38 @@ function getPost(count) {
         if (!response.posts[0]) {
             return;
         }
-        let post = response.posts[0];
+        
+        for (let post of response.posts) {
+            let post_element = post_template.cloneNode(true);
+            post_element.classList.remove('template');
+            content.append(post_element);
+            let passed_time_in_seconds = Date.now()/1000 - post.created_at;
+            let days_passed = Math.floor(passed_time_in_seconds / sec_in_day) + "d";
 
-        let post_element = post_template.cloneNode(true);
-        post_element.classList.remove('template');
-        content.append(post_element);
-        let passed_time = Date.now()/1000 - post.created_at;
-        const sec_in_day = 60 * 60 * 24;
-        const days_passed = Math.floor(passed_time / sec_in_day) + "d";
+            post_element.querySelector('.post__author-name').textContent = post.author;
 
-        post_element.querySelector('.post__author-name').textContent = post.author;
-        post_element.querySelector('.post__image').setAttribute('src', post.image_path);
-        post_element.querySelector('.fallower_nr').textContent = post.fallowers;
+            let image_element = post_element.querySelector('.post__image');
+            if (post.image_path) {
+                image_element.setAttribute('src', post.image_path);
+            }
+            else {
+                image_element.remove();
+            }
 
-        post_element.querySelector('.post__content').innerHTML = post.content;
-        post_element.querySelector('.likes_count').textContent = post.likes;
-        post_element.querySelector('.comments_count').textContent = post.comment_count;
-        post_element.querySelector('.post__created').textContent = days_passed;
 
+            post_element.querySelector('.fallower_nr').textContent = post.fallowers;
+
+            post_element.querySelector('.post__content').innerHTML = post.content;
+            post_element.querySelector('.likes_count').textContent = post.likes;
+            post_element.querySelector('.comments_count').textContent = post.comment_count;
+            post_element.querySelector('.post__created').textContent = days_passed;
+        }
         //loaded++;
         getPost(--count);
     });
 }
 
-getPost(5);
+getPost(5, "api.php?api-name=posts");
 /*
 const posts_to_load = 2;
 getPost(posts_to_load);
@@ -61,10 +69,10 @@ function newPost (event) {
     }
     else if (
         event.key == 'Enter' &&
-        !shift_state
+        shift_state == false
     ) {
-        const form = this;
-        request.post(this, function (response) {
+        const form = document.getElementById('new_post_form');
+        request.post(form, function (response) {
             form.querySelector('textarea').value = '';
         });
     }

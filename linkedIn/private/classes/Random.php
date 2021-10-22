@@ -8,6 +8,9 @@ class Random
         return rand(30, 1000);
     }
 
+    /**
+     * Atgriež nejaušu timestamp laikā no 1 - 25 dienām atpakaļ
+     */
     public function getCreateAt() {
         return time() - rand($this->sec_in_day, 25 * $this->sec_in_day);
     }
@@ -20,28 +23,22 @@ class Random
         return rand(1, 14);
     }
 
-    public function getContent() {
+    public function getContent() :string {
         $paras = rand(1, 3);
         $output = Request::get("https://baconipsum.com/api/?type=meat-and-filler&paras=$paras&format=text");
-        if ($output) {
-            return $output;
-        }
-        else {
-            return "This is post content";
-        }
 
+        return ($output != '') ? $output : "This is post content";
     }
 
-    public function getImage() {
+    public function getImageUrl() :string {
         $output = Request::get("https://dog.ceo/api/breeds/image/random");
         $data = json_decode($output, true);
         return $data['message'];
     }
 
-    public function getName() {
+    public function getName() :string {
         $output = Request::get("https://api.namefake.com/");
         $data = json_decode($output, true);
-        return $data['name'];
+        return isset($data['name']) ? $data['name'] : "No name";
     }
-
 }

@@ -22,6 +22,9 @@
                 <a href="#Ads">Ads</a>
             </nav>
         </div>
+        <footer style="text-align:center;">
+            Copyright &copy; <?php echo date('Y.'); ?>
+        </footer>
     </div>
     <div class="content">
         <div class="card new">
