@@ -7,25 +7,39 @@ $output = [
 ];
 
 if (isset($_GET['api-name']) && is_string($_GET['api-name'])) {
-    include_once(PRIVATE_DIR . "/classes/DB.php");
-    $project_db = new DB('posts');
-
     if ($_GET['api-name'] == 'new_post') {
+        include_once(PRIVATE_DIR . "/classes/DB.php");
+        $project_db = new DB('posts');
         if (isset($_POST['new_post']) && is_string($_POST['new_post'])) {
-            $project_db->add([
-                'author_id' => 1,
-                'post_message' => $_POST['new_post']
-            ]);
+            $new_post = trim($_POST['new_post']);
+            if (!empty($new_post)) {
+                $result = $project_db->add([
+                    'author_id' => 1,
+                    'post_message' => $new_post
+                ]);
 
-            $output['status'] = true;
+                if ($result['status']) {
+                    $output['status'] = true;
+                    $output['post'] = [
+                        'id' => $result['entity']['id'],
+                        'content' => $result['entity']['post_message'],
+                    ];
+                }
+            }
         }
     }
     elseif ($_GET['api-name'] == 'posts') {
+        include_once(PRIVATE_DIR . "/classes/DB.php");
+        $project_db = new DB('posts');
         $data = $project_db->getAll();
         if ($data['status']) {
             $entries = [];
 
-            foreach ($data['entities'] as $post) {
+            $ids = array_keys($data['entities']);
+            for ($i = count($data['entities']) - 1; $i >= 0; $i--) {
+                $post = $data['entities'][$ids[$i]];
+
+            //foreach ($data['entities'] as $post) {
                 $template = [
                     'author' => 'Vitālijs',
                     'fallowers' => 0,
@@ -90,7 +104,6 @@ if (isset($_GET['api-name']) && is_string($_GET['api-name'])) {
         $output['posts'] = $entries;
     }
 }
-
 
 
 echo json_encode($output, JSON_PRETTY_PRINT);

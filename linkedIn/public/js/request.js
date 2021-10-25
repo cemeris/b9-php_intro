@@ -3,17 +3,20 @@ const request = {
      * @param {*} form
      * @param {function || false} callback() - function parameters (response_object, form)
      */
-    post: function (form, callback = false) {
+    post: function (form, onsuccess = false, callback = false) {
         let url = form.getAttribute('action'),
             data = new FormData(form);
     
         const xhttp = new XMLHttpRequest();
         xhttp.onload = function() {
-            if (callback !== false) {
+            if (onsuccess !== false) {
                 let response_object = JSON.parse(this.responseText);
                 if (response_object.status == true) {
-                    callback(response_object, form);
+                    onsuccess(response_object, form);
                 }
+            }
+            if (callback !== false) {
+                callback();
             }
         };
         xhttp.open("POST", url);

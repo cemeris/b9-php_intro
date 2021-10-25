@@ -33,11 +33,11 @@
                 <textarea class="new__input" type="text" name="new_post" placeholder="Start a post"></textarea>
             </form>
         </div>
-      <?php
-        include(PRIVATE_DIR . '/parts/post.php');
-
-
-      ?>
+        <div class="posts-wrapper">
+        <?php
+            include(PRIVATE_DIR . '/parts/post.php');
+        ?>
+        </div>
     </div>
     <div>
         <div class="card"></div>

@@ -91,12 +91,12 @@ class DB
                 'status' => true,
                 'entity' => $entity
             ];
-        } else {
-            return [
-                'status' => false,
-                'message' => "Error: " . $sql . "<br>" . $this->conn->error
-            ];
         }
+
+        return [
+            'status' => false,
+            'message' => "Error: " . $sql . "<br>" . $this->conn->error
+        ];
     }
 
     public function delete(int $id) {
