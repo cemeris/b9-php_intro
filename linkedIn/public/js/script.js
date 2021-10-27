@@ -1,8 +1,12 @@
 let post_template = document.querySelector('.post.template');
 let posts_wrapper = document.querySelector('.posts-wrapper');
-const sec_in_day = 60 * 60 * 24;
-let loaded = 0;
 
+const sec_in_minute = 60;
+const sec_in_hour = 60 * 60;
+const sec_in_day = sec_in_hour * 24;
+const sec_in_week = sec_in_day * 7;
+
+let loaded = 0;
 
 /**
  * @param {*} post {
@@ -25,8 +29,37 @@ function insertPost(post, append = true) {
         posts_wrapper.prepend(post_element);
     }
 
-    let passed_time_in_seconds = Date.now()/1000 - post.created_at;
-    let days_passed = Math.floor(passed_time_in_seconds / sec_in_day) + "d";
+    let passed_time_in_seconds = Math.floor(Date.now()/1000 - post.created_at);
+    let time_passed = "0d";
+
+    //Nedēļu skaits ir mazāks par vienu.
+    // Vai pagājušo sekundžu skaits ir mazāks par sekudžu skaitu nedēļā
+    if (passed_time_in_seconds >= sec_in_week) {
+        time_passed = Math.floor(passed_time_in_seconds / sec_in_week) + "w";
+    }
+    else if (passed_time_in_seconds >= sec_in_hour) {
+        time_passed = Math.floor(passed_time_in_seconds / sec_in_hour) + "h";
+    }
+    else if (passed_time_in_seconds >= sec_in_minute) {
+        time_passed = Math.floor(passed_time_in_seconds / sec_in_minute) + "min";
+    }
+    else {
+        time_passed = passed_time_in_seconds + "s";
+    }
+
+    /*
+    weeks, days, hours, minutes, seconds
+    w, d, h, min, s
+
+    1. Precizējam uzdevumu
+    2. Idejas un jautājumu formulēšana.
+    3. Sadalam uzdevumu mazos apakšuzdevumos.
+
+    __
+    Q1: Kurā vietā javiec izmaiņas?
+    Q2: Kādas izmaiņas?
+    
+    */
 
     post_element.querySelector('.post__author-name').textContent = post.author;
 
@@ -43,7 +76,7 @@ function insertPost(post, append = true) {
     post_element.querySelector('.post__content').innerHTML = post.content;
     post_element.querySelector('.likes_count').textContent = post.likes;
     post_element.querySelector('.comments_count').textContent = post.comment_count;
-    post_element.querySelector('.post__created').textContent = days_passed;
+    post_element.querySelector('.post__created').textContent = time_passed;
 
     loaded++;
 }
@@ -99,7 +132,7 @@ function newPost (event) {
             form,
             function (response) {
                 insertPost({
-                    created_at: '',
+                    created_at: response.post.created_at,
                     author: '',
                     image_path: '',
                     fallowers: 15,

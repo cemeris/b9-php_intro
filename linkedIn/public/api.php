@@ -15,7 +15,8 @@ if (isset($_GET['api-name']) && is_string($_GET['api-name'])) {
             if (!empty($new_post)) {
                 $result = $project_db->add([
                     'author_id' => 1,
-                    'post_message' => $new_post
+                    'post_message' => $new_post,
+                    'created_at' => date('Y-m-d H:i:s')
                 ]);
 
                 if ($result['status']) {
@@ -23,7 +24,11 @@ if (isset($_GET['api-name']) && is_string($_GET['api-name'])) {
                     $output['post'] = [
                         'id' => $result['entity']['id'],
                         'content' => $result['entity']['post_message'],
+                        'created_at' => strtotime($result['entity']['created_at']),
                     ];
+                }
+                else {
+                    $output['message'] = $result['message'];
                 }
             }
         }
@@ -43,7 +48,7 @@ if (isset($_GET['api-name']) && is_string($_GET['api-name'])) {
                 $template = [
                     'author' => 'Vitālijs',
                     'fallowers' => 0,
-                    'created_at' => 0,
+                    'created_at' => strtotime($post['created_at']),
                     'content' => $post['post_message'],
                     'likes' => 0,
                     'comment_count' => 0
